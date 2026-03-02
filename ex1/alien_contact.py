@@ -18,7 +18,7 @@ class AlienContact(BaseModel):
     contact_type: ContactType
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
-    witness_count: int = Field(ge=1, le=110)
+    witness_count: int = Field(ge=1, le=100)
     message_received: Optional[str] = Field(default=None, max_length=500)
     is_verified: bool = Field(default=False)
 
@@ -73,9 +73,12 @@ def main() -> None:
             message_received='Greetings from nothin I am an error'
         )
         print(invalid_contact)
-    except (ValidationError, ValueError) as cur_error:
+    except ValidationError as cur_error:
         print('Expected validation error:')
-        print(cur_error.errors()[0]['ctx']['error'])
+        print(cur_error.errors()[0]["msg"])
+    except ValueError as cur_error:
+        print('Validation error:')
+        print(cur_error)
 
 
 if __name__ == '__main__':

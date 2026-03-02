@@ -103,8 +103,8 @@ def main() -> None:
         print(f"Crew size: {len(valid_mission.crew)}")
         print("Crew members:")
         for member in valid_mission.crew:
-            print(f"- {member.name} ({member.rank.value}) - "
-                  f"{member.specialization}")
+            print(f"- {member.name} ({member.rank.value}) - ", end='')
+            print(f"{member.specialization}")
         print()
         print("=========================================")
         SpaceMission(
@@ -129,7 +129,7 @@ def main() -> None:
 
     except ValidationError as cur_error:
         print("Expected validation error:")
-        print(cur_error.errors()[0]['ctx']['error'])
+        print(cur_error.errors()[0]["msg"])
 
 
 if __name__ == "__main__":
